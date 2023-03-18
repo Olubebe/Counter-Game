@@ -78,6 +78,7 @@ export default {
   border-radius: 4px;
   outline: none;
   margin-right: 10px;
+  color: #000;
 }
 .counter__button{
   padding: 1rem 2rem; 

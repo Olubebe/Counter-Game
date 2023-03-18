@@ -1,111 +1,230 @@
 <template>
   <div>
-    <nav class="navbar" >
-        <RouterLink  class="navbar_logo" >Counter App</RouterLink>
-        <div  class="navbar_toggle" id="mobile-menu">
-            <span class="bar" ></span>
-            <span class="bar" ></span>
-            <span class="bar" ></span>
-        </div>
-        <div class="navbar_menu">
-            <RouterLink class="navbar_link" to="/" >Home</RouterLink>
-            <RouterLink class="navbar_link" to="/counter">Counter</RouterLink>
-            <a  class="navbar_link" to="https://github.com/Olubebe/" >Github</a>
-        </div>
-    </nav>
+    <header :class="{'scrolled-nav' : scrollNav }">
+ <nav>
+  <div class="branding">
+    <h2>Counter Game</h2>
+  </div>
+  <ul v-show="!mobile" class="navigation">
+<li> <router-link class="link" to="/" >Home</router-link> 
+</li>
+<li> <router-link class="link" to="/counter" >Counter</router-link> 
+</li>
+<li>
+   <a class="link" href="https://github.com/Olubebe" target="_blank" >Github</a>
+</li>
+  </ul>
+  <div class="icon">
+    <i  @click="toggleMobileNav" :class="{'icon-active' : mobileNav}" class="fas fa-bars" v-show="mobile"></i>
+  </div>
+ <transition name="mobile-nav">
+  <ul v-show="mobileNav" class="dropdown-nav">
+<li> <router-link class="link" to="/" >Home</router-link> 
+</li>
+<li> <router-link class="link" to="/counter" >Counter</router-link> 
+</li>
+<li>
+   <a class="link" href="https://github.com/Olubebe" >Github</a>
+</li>
+  </ul>
+ </transition>
+ </nav>
+  </header>
   </div>
 
 </template>
 
 <script>
 export default {
-  name: 'home',
+  name: 'header',
+  data(){
+    return{
+      mobile: null,
+      mobileNav: null,
+      scrollNav: null,
+      windowWidth:null,
+    }
+  },
+
+created(){
+    this.checkScreen()
+    window.addEventListener('resize', this.checkScreen)
+    
+    },
+    mounted(){
+      window.addEventListener('scroll', this.updateScroll)
+    },
+
+  methods:{
+    toggleMobileNav(){
+      this.mobileNav = !this.mobileNav
+    },
+
+    updateScroll(){
+        const scrollPosition = window.scrollY;
+        if(scrollPosition > 50){
+            this.scrolledNav = true;
+            return
+        }
+        this.scrolledNav = false;
+    },
+
+    checkScreen(){
+        this.windowWidth = window.innerWidth
+        if(this.windowWidth < 768){
+          this.mobile = true;
+          return;
+        }
+        this.mobile = false;
+        this.mobileNav = false;
+        return
+    }
+    // ,
+    // handleScroll(){
+    //   this.scrollPosition = window.scrollY
+    // }
+  }
 }
 </script>
 
-<style scoped>
-
-.navbar{
-    background: var(--black);
+<style lang="scss" scoped>
+header{
+    background-color: rgba(0,0, 0, 0.8);
+    z-index: 99;
+    width:100%;
+    position: fixed;
+    transition: .5s ease all;
     color: #fff;
-    height: 60px;
-    padding: 0.5rem calc((100vw - 1200px) / 2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+    nav{
     position: relative;
+    display: flex;
+    flex-direction: row;
+    padding: 12px 0;
+    transition: .5s ease all;
+    width: 98%;
+    margin: 0 auto;
+
+    @media(min-width: 1140px){
+    max-width: 1140px;
 }
-.navbar_logo {
-    color: var(--white);
-    text-decoration: none;
-    padding-left: 1rem;
-    font-size: 1.5rem;
+
+ul,
+.link{
+  font-weight: 500;
+  color: #fff;
+  list-style: none;
+  text-decoration: none;
 }
-.navbar_link {
-    color: var(--white);
-    text-decoration: none;
-    padding: 1rem 1rem;
+li{
+text-transform: uppercase;
+padding: 16px;
+margin-left: 16px;
+}
+.link{
+font-size: 14px;
+transition: .5s ease all;
+padding-bottom: 4px;
+border-bottom: 1px solid transparent;
+
+&:hover{
+    color: #fff;
+    border-color: red;
+    outline: 0;
+}
+}
+
+.branding{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    h2{
+        font-size: 24px;
+        margin-bottom: 1rem;
+        font-weight: 500;
+        transition: .5s ease all;
+    }
+}
+
+.navigation{
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+}
+.icon{
+    display: flex;
+    position: absolute;
+    align-items: center;
+    top: 0;
+    right: 24px;
+    height: 100%;
+
+    i{
+        cursor: pointer;
+        font-size: 24px;
+        transition: 0.8s ease all;
+    }
+}
+
+.icon-active{
+    transform: rotate(180deg);
+}
+
+.dropdown-nav{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: 100%;
+    max-width: 250px;
+    height: 100%;
+    background-color: #fff;
+    top: 0;
+    left: 0;
+
+    li{
+        margin-left: 0;
+        .link{
+            color: #000;
+        }
+    }
+}
+
+.mobile-nav-enter-active,
+.mobile-nav-leave-active{
+    transition: 1s ease all;
+}
+
+.mobile-nav-enter-from,
+.mobile-nav-leave-to{
+    transform: translateX(-250px);
+}
+
+.mobile-nav-enter-to{
+    transform: translateX(0);
+}
 
 }
-.navbar_link:hover {
-color: var(--red);
-border-bottom: 2px solid var(--red);
-}
-@media screen and (max-width:768px) {
-    body.active{
-        overflow-y: hidden;
-        overflow-x: hidden;
-    }
- .navbar_link{
-     display: flex;
-     align-items: center;
-     justify-content: center;
-   
- }
- 
- .navbar_menu{
-display: grid;
-grid-template-columns: 1fr;
-grid-template-rows:repeat(4, 100px);
-position: absolute;
-width: 100%;
-top: -1000px;
- }
- .navbar_menu.active {
-     top: 100%;
-     opacity:1;
-     z-index: 99;
-     height: 100vh;
-     font-size: 1.5rem;
-     background: var(--black);
-    }
 
- .navbar_toggle .bar{
- width: 25px;
- height: 3px;
- margin: 5px auto;
- transition: all 0.3s ease-in-out;
- background: var(--white);
- display: block;
- cursor: pointer;
- }
- #mobile-menu {
-     position: absolute;
-     top: 15%;
-     right: 5%;
-     transform: translate(5%, 20%);
-    
- }
- #mobile-menu.is-active .bar:nth-child(2) {
-opacity: 0;
- }
- #mobile-menu.is-active .bar:nth-child(1) {
-transform: translateY(8px) rotate(45deg);
- }
- #mobile-menu.is-active .bar:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
- }
 }
+
+.scrolled-nav{
+    background-color: #000;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0, 0.1), 0 2px 4px -1px rgba(0,0,0, 0.06);
+
+    nav{
+        padding: 8px 0;
+
+        .branding{
+            h2{
+                font-size: 18px;
+                box-shadow: 0 4px 6px -1px rgba(0,0,0, 0.1), 0 2px 4px -1px rgba(0,0,0, 0.06);
+            }
+        }
+    }
+}
+
 
 
 </style>

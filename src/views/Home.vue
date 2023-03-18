@@ -3,7 +3,7 @@
         <div class="hero_content">
             <h1 class="anime_hero">Counter Game</h1>
             <p  class="anime_hero">How Far Can You Count...</p>
-            <a href="/counter" class="button anime_hero">Play Now</a>
+            <router-link to="/counter" class="button anime_hero">Play Now</router-link>
         </div>
     </div>
   

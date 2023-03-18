@@ -17,8 +17,8 @@ const store = createStore({
       state.counter = 0;
     },
     //  setValue to edit counter
-    setValue(state, payload) {
-      state.counter = payload;
+    setValue(state, value) {
+      state.counter = value;
     },
   },
   actions: {
