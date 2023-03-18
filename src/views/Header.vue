@@ -6,9 +6,11 @@
     <h2>Counter Game</h2>
   </div>
   <ul v-show="!mobile" class="navigation">
-<li> <router-link class="link" to="/" >Home</router-link> 
+<li> <router-link class="link" :to="{name: 'Home'}" >Home</router-link> 
 </li>
-<li> <router-link class="link" to="/counter" >Counter</router-link> 
+<li> <router-link class="link" :to="{name: 'Counter'}" >Counter</router-link> 
+</li>
+    <li> <router-link class="link" :to="{name: 'NotFound'}" >ErrorPage</router-link> 
 </li>
 <li>
    <a class="link" href="https://github.com/Olubebe" target="_blank" >Github</a>
@@ -19,9 +21,11 @@
   </div>
  <transition name="mobile-nav">
   <ul v-show="mobileNav" class="dropdown-nav">
-<li> <router-link class="link" to="/" >Home</router-link> 
+<li> <router-link class="link" :to="{name: 'Home'}" >Home</router-link> 
 </li>
-<li> <router-link class="link" to="/counter" >Counter</router-link> 
+<li> <router-link class="link" :to="{name: 'Counter'}" >Counter</router-link> 
+</li>
+<li> <router-link class="link" :to="{name: 'NotFound'}" >ErrorPage</router-link> 
 </li>
 <li>
    <a class="link" href="https://github.com/Olubebe" >Github</a>
