@@ -6,3 +6,4 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 
 - [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 # Counter-Game
+![My Remote Image](https://oluwibe-faith.netlify.app/static/media/counter-game.a466bf4c89a8c3c13ec8.png?dl=0)
